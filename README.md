@@ -1,0 +1,1 @@
+A game simulating a student's struggle to keep a healthy life.
