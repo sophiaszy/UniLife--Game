@@ -1,7 +1,7 @@
 package com.company.model;
 
 /**
- * Created by SophiaShen on 2017-06-11.
+ * Created by anita on 6/12/2017.
  */
-public abstract class FallingObject {
+public interface FallingObject {
 }

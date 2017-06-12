@@ -1,7 +1,8 @@
 package com.company.model;
 
 /**
- * Created by SophiaShen on 2017-06-11.
+ * Created by anita on 6/12/2017.
  */
-public class Necessity extends FallingObject {
+public abstract class Necessity {
+
 }
