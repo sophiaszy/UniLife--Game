@@ -6,20 +6,15 @@ package com.company.model;
  */
 public class Student {
 
-    private int x_coord;
-    private int y_coord;
-    private boolean isDrunk;
-    private int speed;
-    //TODO
-    private final int NORMAL_SPEED = 25;
-    private final int FAST_SPEED = 50;
-    private final int STUDENT_Y = UniLifeGame.HEIGHT - 100;
+    private final int NORMAL_SPEED = 25; //TODO
+    private final int FAST_SPEED = 50; //TODO
+    private int x_coord = UniLifeGame.CTR_X;
+    private int y_coord = UniLifeGame.HEIGHT - 100; //TODO
+    private boolean isDrunk = false;
+    private int speed = NORMAL_SPEED;
 
-    public Student() {
-        y_coord = STUDENT_Y;
-        x_coord = UniLifeGame.CTR_X;
-        speed = NORMAL_SPEED;
-    }
+
+    public Student() {}
 
     public void moveLeft() {
         if (isDrunk)
@@ -33,8 +28,8 @@ public class Student {
     public void moveRight() {
         if (isDrunk)
             return;
-        if ((x_coord + speed) >= UniLifeGame.HEIGHT)
-            x_coord = UniLifeGame.HEIGHT;
+        if ((x_coord + speed) >= UniLifeGame.WIDTH)
+            x_coord = UniLifeGame.WIDTH;
         else
             x_coord += speed;
     }
