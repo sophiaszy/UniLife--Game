@@ -6,18 +6,21 @@ package com.company.model;
 
 public abstract class FallingObject {
 
-    protected static final int D_Y = 5; //Todo
+    private static final int D_Y = 5; //Todo
     private int x_coord;
     private int y_coord = 0;
-    private FallingObjectType type;
+    private NecessityType type;
 
-    public FallingObject(FallingObjectType type, int x_coord){
+    public FallingObject(NecessityType type, int x_coord){
         this.type = type;
         this.x_coord = x_coord;
     }
 
     public void fall() {
-        y_coord += D_Y;
+        if(y_coord+D_Y>=UniLifeGame.HEIGHT)
+            y_coord = UniLifeGame.HEIGHT;
+        else
+            y_coord += D_Y;
     }
 
 
@@ -30,7 +33,7 @@ public abstract class FallingObject {
         return y_coord;
     }
 
-    public FallingObjectType get_type(){
+    public NecessityType getType(){
         return type;
     }
 }
