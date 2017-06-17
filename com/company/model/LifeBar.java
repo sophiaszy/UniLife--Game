@@ -8,11 +8,9 @@ public class LifeBar {
     private static final int INC_SPEED = 10; //Todo
     private static final int MAX_LEVEL = 50; //Todo
     private int level= MAX_LEVEL / 2; //Todo
-    private NecessityType type;
 
-    public LifeBar(NecessityType type){
-        this.type = type;
-    }
+
+    public LifeBar(){}
 
     public void dropLevel(){
         level -= DROP_SPEED;

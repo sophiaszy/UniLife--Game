@@ -4,14 +4,14 @@ package com.company.model;
  * Created by anita on 6/12/2017.
  */
 
-public abstract class FallingObject {
+public class FallingObject {
 
     private static final int D_Y = 5; //Todo
     private int x_coord;
     private int y_coord = 0;
-    private NecessityType type;
+    private FallingObjectType type;
 
-    public FallingObject(NecessityType type, int x_coord){
+    public FallingObject(FallingObjectType type, int x_coord){
         this.type = type;
         this.x_coord = x_coord;
     }
@@ -33,7 +33,7 @@ public abstract class FallingObject {
         return y_coord;
     }
 
-    public NecessityType getType(){
+    public FallingObjectType getType(){
         return type;
     }
 }
