@@ -50,7 +50,7 @@ public class UniLifeGame {
         if (random2 == 0) {
             int rand_xpos2 = rand.nextInt(WIDTH);
             fallingObjects.add(new FallingObject(FallingObjectType.Coffee))
-
+ 
         }
 
     }
