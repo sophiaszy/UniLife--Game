@@ -60,7 +60,8 @@ public class UniLifeGameApp extends JFrame {
 
     public static void main(String[] args) {
 	/* write your code here */
-        new UniLifeGameApp();
+        //new UniLifeGameApp();
+        System.out.println(FallingObjectType.Coffee);
     }
 
 }

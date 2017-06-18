@@ -50,9 +50,5 @@ public class Student {
         return x_coord;
     }
 
-    public int getY() {
-        return y_coord;
-    }
-
 
 }
