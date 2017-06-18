@@ -48,7 +48,7 @@ public class UniLifeGame {
         checkIsGameOver();
         updateStudentCoffeeStatus();
         updateStudentSoberness();
-    }
+    } 
 
     private void addFallingObjects() {
         int rand_xpos = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
