@@ -15,6 +15,10 @@ public class UniLifeGame {
     private static final int BORDER = 25; //TODO
     private final int VICINITY = 10; //TODO
 
+    private int sobernessCount;
+    private int coffeeRushCount;
+    private static final int MAX_COUNT = 25;
+
     private Random rand = new Random();
     private List<FallingObject> fallingObjects;
     private Student student;
@@ -42,6 +46,8 @@ public class UniLifeGame {
         moveFallingObjects();
         dropAllBarLevels();
         checkIsGameOver();
+        updateStudentCoffeeStatus();
+        updateStudentSoberness();
     }
 
     private void addFallingObjects() {
@@ -72,10 +78,14 @@ public class UniLifeGame {
         for (FallingObject obj: fallingObjects) {
             if (obj.getX() < (student.getX() + VICINITY) &&
                     obj.getX() > (student.getX() - VICINITY))
-                if (obj.getType() == FallingObjectType.Coffee)
+                if (obj.getType() == FallingObjectType.Coffee) {
                     student.drinkCoffee();
-                else if (obj.getType() == FallingObjectType.Vodka)
+                    coffeeRushCount = MAX_COUNT;
+                }
+                else if (obj.getType() == FallingObjectType.Vodka) {
                     student.changeDrunkStatus(true);
+                    sobernessCount = MAX_COUNT;
+                }
                 else
                     barMap.get(obj.getType()).increaseLevel();
         }
@@ -97,11 +107,19 @@ public class UniLifeGame {
     }
 
     private void updateStudentCoffeeStatus() {
-        student.finishCoffee();
+        if (coffeeRushCount == 0) {
+            student.finishCoffee();
+            return;
+        }
+        coffeeRushCount --;
     }
 
     private void updateStudentSoberness() {
-        student.changeDrunkStatus(false);
+        if (sobernessCount == 0) {
+            student.changeDrunkStatus(false);
+            return;
+        }
+        sobernessCount --;
     }
 
     //TODO: add key handlers to make student move left and right
