@@ -24,14 +24,16 @@ public class ULGamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawStudent(g);
         drawFallingObjects(g);
+        drawStudent(g);
     }
 
     private void drawStudent(Graphics g){
         Student s = controller.getStudent();
+        Color savedCol = g.getColor();
         g.setColor(new Color(0, 0, 0));
-        g.fillRect(s.getX() - 50 , UniLifeGame.HEIGHT - 50, s.getX(), UniLifeGame.HEIGHT);
+        g.fillRect(s.getX(), UniLifeGame.HEIGHT - 100, 50, 100);
+        g.setColor(savedCol);
     }
 
     private void drawFallingObjects(Graphics g){
@@ -49,6 +51,7 @@ public class ULGamePanel extends JPanel {
     }
 
     private void drawFallingObject(FallingObject o, Graphics g){
+        Color savedCol = g.getColor();
         switch(o.getType()){
             case Coffee:
                 g.setColor(Color.DARK_GRAY);
@@ -66,10 +69,12 @@ public class ULGamePanel extends JPanel {
                 g.setColor(Color.GREEN);
                 break;
         }
-        g.fillRect(o.getX() - 5 , o.getY() - 5, o.getX(), o.getY());
+        g.fillRect(o.getX(), o.getY(), 20, 20);
+        g.setColor(savedCol);
     }
 
     private void drawLifeBar(Map.Entry<FallingObjectType, LifeBar> o, Graphics g){
+        Color savedCol = g.getColor();
         switch(o.getKey()){
             case Book:
                 g.setColor(Color.blue);
@@ -82,6 +87,8 @@ public class ULGamePanel extends JPanel {
                 break;
         }
         //g.fillRect(100 - 5 , o.getY() - 5, 100, o.getY());
+        //TODO: possibly another score panel
+        g.setColor(savedCol);
     }
 }
 

@@ -4,6 +4,7 @@ import com.company.model.FallingObjectType;
 import com.company.model.UniLifeGame;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,17 +19,22 @@ public class UniLifeGameApp extends JFrame implements ActionListener {
 
     private Timer timer;
     private int SPEED = 200;
-    private int PAUSE = 3000;
+    private int PAUSE = 1000;
     private UniLifeGame controller;
-    ULGamePanel panel;
+    private JLayeredPane lpane;
+    ULGamePanel gPanel;
+    ULStatePanel sPanel;
 
     public UniLifeGameApp(){
         super("UniLife Game");
         controller = new UniLifeGame();
         setUpFrame();
-        setUpPanel();
+        lpane = new JLayeredPane();
+        add(lpane);
+        setUpGPanel();
+        setUpSPanel();
         setUpTimer();
-
+        addKeyListener(new HandleKeys());
 
     }
 
@@ -36,11 +42,18 @@ public class UniLifeGameApp extends JFrame implements ActionListener {
         setSize(UniLifeGame.WIDTH,UniLifeGame.HEIGHT);
         setLocationRelativeTo(null);
         setVisible(true);
+
     }
 
-    private void setUpPanel() {
-        panel = new ULGamePanel(controller);
-        add(panel);
+    private void setUpGPanel() {
+        gPanel = new ULGamePanel(controller);
+        lpane.add(gPanel, 1); //priority
+        setVisible(true);
+    }
+
+    private void setUpSPanel() {
+        sPanel = new ULStatePanel(controller);
+        lpane.add(sPanel, 0);
         setVisible(true);
     }
 

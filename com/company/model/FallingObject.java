@@ -6,7 +6,7 @@ package com.company.model;
 
 public class FallingObject {
 
-    private static final int D_Y = 5; //Todo
+    private static final int D_Y = 15; //Todo
     private int x_coord;
     private int y_coord = 0;
     private FallingObjectType type;

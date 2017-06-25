@@ -57,16 +57,17 @@ public class UniLifeGame {
 
     private void addFallingObjects() {
         int rand_xpos = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
-        int random1 = rand.nextInt(15);
+
+        int random1 = rand.nextInt(50);
         if(random1 <= 2){
             fallingObjects.add(new FallingObject( FallingObjectType.values()[random1], rand_xpos));
         }
 
-        int random2 = rand.nextInt(30);
+        int random2 = rand.nextInt(100);
         if (random2 == FallingObjectType.Coffee.getType() ||
                 random2 == FallingObjectType.Vodka.getType()) {
             int rand_xpos2 = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
-            fallingObjects.add(new FallingObject(FallingObjectType.values()[rand.nextInt(3)], rand_xpos2));
+            fallingObjects.add(new FallingObject(FallingObjectType.values()[random2], rand_xpos2));
         }
     }
 
