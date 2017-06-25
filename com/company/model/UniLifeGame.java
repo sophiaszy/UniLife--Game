@@ -51,14 +51,18 @@ public class UniLifeGame {
         updateStudentCoffeeStatus();
         updateStudentSoberness();
         checkIsGameOver();
+        //student.moveLeft();
     }
 
 
     private void addFallingObjects() {
         int rand_xpos = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
-        fallingObjects.add(new FallingObject( FallingObjectType.values()[rand.nextInt(3)], rand_xpos));
+        int random1 = rand.nextInt(15);
+        if(random1 <= 2){
+            fallingObjects.add(new FallingObject( FallingObjectType.values()[random1], rand_xpos));
+        }
 
-        int random2 = rand.nextInt(10);
+        int random2 = rand.nextInt(30);
         if (random2 == FallingObjectType.Coffee.getType() ||
                 random2 == FallingObjectType.Vodka.getType()) {
             int rand_xpos2 = rand.nextInt(WIDTH - 2*BORDER) + BORDER;

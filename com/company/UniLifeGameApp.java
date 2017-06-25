@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
  * Created by anita on 6/12/2017.
  */
 
-public class UniLifeGameApp extends JFrame {
+public class UniLifeGameApp extends JFrame implements ActionListener {
 
     private Timer timer;
     private int SPEED = 200;
@@ -24,10 +24,10 @@ public class UniLifeGameApp extends JFrame {
 
     public UniLifeGameApp(){
         super("UniLife Game");
+        controller = new UniLifeGame();
         setUpFrame();
         setUpPanel();
-        //setUpTimer();
-        controller = new UniLifeGame();
+        setUpTimer();
 
 
     }
@@ -41,18 +41,17 @@ public class UniLifeGameApp extends JFrame {
     private void setUpPanel() {
         panel = new ULGamePanel(controller);
         add(panel);
-        panel.repaint();
         setVisible(true);
     }
 
-    /*
+
     private void setUpTimer() {
         timer = new Timer(SPEED, this);
         timer.setInitialDelay(PAUSE);
         timer.start();
 
     }
-    */
+
 
     public void actionPerformed( ActionEvent evt) {
         controller.update();
