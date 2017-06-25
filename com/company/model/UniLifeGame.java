@@ -4,6 +4,9 @@ package com.company.model;
  * Created by SophiaShen on 2017-06-11.
  */
 
+import com.sun.javafx.UnmodifiableArrayList;
+
+import java.awt.event.KeyEvent;
 import java.util.*;
 
 public class UniLifeGame {
@@ -15,7 +18,7 @@ public class UniLifeGame {
     private static final int BORDER = 25; //TODO
     private final int VICINITY = 10; //TODO
 
-    private int sobernessCount;
+    private int e;
     private int coffeeRushCount;
     private static final int MAX_COUNT = 25;
 
@@ -45,10 +48,11 @@ public class UniLifeGame {
         collectObjects();
         moveFallingObjects();
         dropAllBarLevels();
-        checkIsGameOver();
         updateStudentCoffeeStatus();
         updateStudentSoberness();
-    } 
+        checkIsGameOver();
+    }
+
 
     private void addFallingObjects() {
         int rand_xpos = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
@@ -84,7 +88,7 @@ public class UniLifeGame {
                 }
                 else if (obj.getType() == FallingObjectType.Vodka) {
                     student.changeDrunkStatus(true);
-                    sobernessCount = MAX_COUNT;
+                    e = MAX_COUNT;
                 }
                 else
                     barMap.get(obj.getType()).increaseLevel();
@@ -115,12 +119,31 @@ public class UniLifeGame {
     }
 
     private void updateStudentSoberness() {
-        if (sobernessCount == 0) {
+        if (e == 0) {
             student.changeDrunkStatus(false);
             return;
         }
-        sobernessCount --;
+        e --;
     }
 
-    //TODO: add key handlers to make student move left and right
+    public Student getStudent(){
+        return student;
+    }
+
+    public List<FallingObject> getFallingObjects(){
+        return Collections.unmodifiableList(fallingObjects);
+    }
+
+    public Map<FallingObjectType, LifeBar> getBars(){
+        return Collections.unmodifiableMap(barMap);
+    }
+
+
+    public void keyPressed(int e){
+        if (e == KeyEvent.VK_LEFT)
+            student.moveLeft();
+        else if (e == KeyEvent.VK_RIGHT)
+            student.moveRight();
+    }
+
 }
