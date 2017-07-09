@@ -9,6 +9,10 @@ public class LifeBar {
     public static final int MAX_LEVEL = 80; //Todo
     private int level= MAX_LEVEL; //Todo
 
+    public static final int BAR_WIDTH = 30;
+    public static final int BAR_HEIGHT = MAX_LEVEL;
+    public static final int LINE_THICKNESS = 3;
+
 
     public LifeBar(){}
 

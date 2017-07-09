@@ -47,19 +47,19 @@ public class ULGamePanel extends JPanel {
         Color savedCol = g.getColor();
         switch(o.getType()){
             case Coffee:
-                g.setColor(Color.DARK_GRAY);
+                g.setColor(new Color(195, 98, 33));
                 break;
             case Book:
-                g.setColor(Color.blue);
+                g.setColor(new Color(154, 255, 143));
                 break;
             case Sleep:
-                g.setColor(Color.magenta);
+                g.setColor(new Color(126, 209, 255));
                 break;
             case Vodka:
-                g.setColor(Color.RED);
+                g.setColor(new Color(250, 221, 255));
                 break;
             case Food:
-                g.setColor(Color.GREEN);
+                g.setColor(new Color(255, 104, 102));
                 break;
         }
         g.fillRect(o.getX(), o.getY(), 20, 20);

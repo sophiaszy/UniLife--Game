@@ -14,7 +14,7 @@ public class UniLifeGame {
     public static final int CTR_X = WIDTH / 2;
 
     private static final int BORDER = 25; //TODO
-    private final int VICINITY = 25; //TODO 
+    private final int VICINITY = 25; //TODO
 
     private int sobernessCount;
     private int coffeeRushCount;
