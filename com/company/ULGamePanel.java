@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by SophiaShen on 2017-06-17.
  */
 public class ULGamePanel extends JPanel {
-    //TODO
+
 
     UniLifeGame controller;
 
@@ -43,13 +43,6 @@ public class ULGamePanel extends JPanel {
         }
     }
 
-    private void drawLifeBars(Graphics g){
-        Map<FallingObjectType, LifeBar> objs = controller.getBars();
-        for(Map.Entry<FallingObjectType, LifeBar> o : objs.entrySet()){
-            drawLifeBar(o, g);
-        }
-    }
-
     private void drawFallingObject(FallingObject o, Graphics g){
         Color savedCol = g.getColor();
         switch(o.getType()){
@@ -73,22 +66,6 @@ public class ULGamePanel extends JPanel {
         g.setColor(savedCol);
     }
 
-    private void drawLifeBar(Map.Entry<FallingObjectType, LifeBar> o, Graphics g){
-        Color savedCol = g.getColor();
-        switch(o.getKey()){
-            case Book:
-                g.setColor(Color.blue);
-                break;
-            case Sleep:
-                g.setColor(Color.magenta);
-                break;
-            case Food:
-                g.setColor(Color.GREEN);
-                break;
-        }
-        //g.fillRect(100 - 5 , o.getY() - 5, 100, o.getY());
-        //TODO: possibly another score panel
-        g.setColor(savedCol);
-    }
+
 }
 

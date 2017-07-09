@@ -19,7 +19,7 @@ public class UniLifeGameApp extends JFrame implements ActionListener {
 
     private Timer timer;
     private int SPEED = 200;
-    private int PAUSE = 1000;
+    private int PAUSE = 300;
     private UniLifeGame controller;
     private JLayeredPane lpane;
     ULGamePanel gPanel;

@@ -5,9 +5,9 @@ package com.company.model;
  */
 public class LifeBar {
     private static final int DROP_SPEED = 1; //Todo
-    private static final int INC_SPEED = 10; //Todo
-    private static final int MAX_LEVEL = 500; //Todo
-    private int level= MAX_LEVEL / 2; //Todo
+    private static final int INC_SPEED = 5; //Todo
+    public static final int MAX_LEVEL = 80; //Todo
+    private int level= MAX_LEVEL; //Todo
 
 
     public LifeBar(){}

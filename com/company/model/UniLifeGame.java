@@ -4,8 +4,6 @@ package com.company.model;
  * Created by SophiaShen on 2017-06-11.
  */
 
-import com.sun.javafx.UnmodifiableArrayList;
-
 import java.awt.event.KeyEvent;
 import java.util.*;
 
@@ -16,12 +14,12 @@ public class UniLifeGame {
     public static final int CTR_X = WIDTH / 2;
 
     private static final int BORDER = 25; //TODO
-    private final int VICINITY = 10; //TODO
+    private final int VICINITY = 25; //TODO
 
-    private int e;
+    private int sobernessCount;
     private int coffeeRushCount;
     private static final int MAX_COUNT = 25;
-
+    private String message = "";
     private Random rand = new Random();
     private List<FallingObject> fallingObjects;
     private Student student;
@@ -51,7 +49,7 @@ public class UniLifeGame {
         updateStudentCoffeeStatus();
         updateStudentSoberness();
         checkIsGameOver();
-        //student.moveLeft();
+        updateMessage();
     }
 
 
@@ -86,17 +84,19 @@ public class UniLifeGame {
     private void collectObjects() {
         for (FallingObject obj: fallingObjects) {
             if (obj.getX() < (student.getX() + VICINITY) &&
-                    obj.getX() > (student.getX() - VICINITY))
+                    obj.getX() > (student.getX() - VICINITY) &&
+                    obj.getY() < (student.getY() + VICINITY) &&
+                    obj.getY() > (student.getY() - VICINITY)) {
                 if (obj.getType() == FallingObjectType.Coffee) {
                     student.drinkCoffee();
                     coffeeRushCount = MAX_COUNT;
-                }
-                else if (obj.getType() == FallingObjectType.Vodka) {
+                } else if (obj.getType() == FallingObjectType.Vodka) {
                     student.changeDrunkStatus(true);
-                    e = MAX_COUNT;
-                }
-                else
+                    sobernessCount = MAX_COUNT;
+                } else
                     barMap.get(obj.getType()).increaseLevel();
+                fallingObjects.remove(obj);
+            }
         }
     }
 
@@ -115,6 +115,18 @@ public class UniLifeGame {
         }
     }
 
+    private void updateMessage(){
+        if(gameOver){
+            message = "Game Over!!!";
+        }else if(coffeeRushCount!=0){
+            message = "Coffee Rush: Super Speed!";
+        }else if (sobernessCount !=0){
+            message = "Too drunk to move!";
+        }else{
+            message = "";
+        }
+    }
+
     private void updateStudentCoffeeStatus() {
         if (coffeeRushCount == 0) {
             student.finishCoffee();
@@ -124,11 +136,11 @@ public class UniLifeGame {
     }
 
     private void updateStudentSoberness() {
-        if (e == 0) {
+        if (sobernessCount == 0) {
             student.changeDrunkStatus(false);
             return;
         }
-        e --;
+        sobernessCount--;
     }
 
     public Student getStudent(){
@@ -142,6 +154,8 @@ public class UniLifeGame {
     public Map<FallingObjectType, LifeBar> getBars(){
         return Collections.unmodifiableMap(barMap);
     }
+
+    public String getMessage() { return message;}
 
 
     public void keyPressed(int e){
