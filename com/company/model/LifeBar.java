@@ -11,7 +11,7 @@ public class LifeBar {
 
     public static final int BAR_WIDTH = 30;
     public static final int BAR_HEIGHT = MAX_LEVEL;
-    public static final int LINE_THICKNESS = 3;
+    public static final int LINE_THICKNESS = 2;
 
 
     public LifeBar(){}

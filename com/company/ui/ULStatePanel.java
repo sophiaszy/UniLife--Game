@@ -4,8 +4,12 @@ import com.company.model.FallingObjectType;
 import com.company.model.LifeBar;
 import com.company.model.UniLifeGame;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -20,16 +24,26 @@ public class ULStatePanel extends JPanel {
     private static final int PANEL_WIDTH = UniLifeGame.WIDTH-PANEL_X_LOC;
     private static final int PANEL_HEIGHT = PANEL_WIDTH;
 
+    private BufferedImage foodImage;
+    private BufferedImage bookImage;
+    private BufferedImage sleepImage;
+
+
     public ULStatePanel(UniLifeGame controller) {
         this.controller = controller;
         setSize(PANEL_WIDTH, PANEL_HEIGHT);
-        setBackground(new Color(116, 121, 105));
+        setBackground(new Color(162, 210, 223));
         setLocation(PANEL_X_LOC, PANEL_Y_LOC);
+
+        foodImage = convertToBufferedImg("C:/Users/anita/Documents/UniLife--Game/com/company/resources/food_resized.png");
+        bookImage = convertToBufferedImg("C:/Users/anita/Documents/UniLife--Game/com/company/resources/books_resized.png");
+        sleepImage = convertToBufferedImg("C:/Users/anita/Documents/UniLife--Game/com/company/resources/sleep_resized.png");
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        drawBorder(g);
         drawLifeBars(g);
         printText(g);
         lifeBarCaption(g);
@@ -50,13 +64,16 @@ public class ULStatePanel extends JPanel {
 
         switch(o.getKey()){
             case Book:
+                g.drawImage(bookImage,(w-LifeBar.BAR_WIDTH)/2+w*o.getKey().getType(),PANEL_HEIGHT/2 - 50,null);
                 g.setColor(new Color(154, 255, 143));
                 break;
             case Sleep:
-                g.setColor(new Color(126, 209, 255));
+                g.setColor(new Color(85, 178, 255));
+                g.drawImage(sleepImage,(w-LifeBar.BAR_WIDTH)/2+w*o.getKey().getType(),PANEL_HEIGHT/2 - 50,null);
                 break;
             case Food:
                 g.setColor(new Color(255, 104, 102));
+                g.drawImage(foodImage,(w-LifeBar.BAR_WIDTH)/2+w*o.getKey().getType(),PANEL_HEIGHT/2 - 50,null);
                 break;
         }
         g.fillRect((w-LifeBar.BAR_WIDTH)/2+w*o.getKey().getType() , PANEL_HEIGHT/2+(LifeBar.BAR_HEIGHT-o.getValue().getLevel()), LifeBar.BAR_WIDTH, o.getValue().getLevel());
@@ -71,8 +88,16 @@ public class ULStatePanel extends JPanel {
         g.fillRect(x+LifeBar.BAR_WIDTH,y- LifeBar.LINE_THICKNESS, LifeBar.LINE_THICKNESS, LifeBar.BAR_HEIGHT+ LifeBar.LINE_THICKNESS *2);
     }
 
+    private void drawBorder(Graphics g){
+        g.setColor(Color.black);
+        g.fillRect(0,0,5,PANEL_HEIGHT);
+        g.fillRect(0,0,PANEL_WIDTH,5);
+        g.fillRect(0,PANEL_HEIGHT-5,PANEL_WIDTH,5);
+        g.fillRect(PANEL_WIDTH-5,0,5,PANEL_HEIGHT);
+    }
+
     private void lifeBarCaption(Graphics g){
-        g.setColor(Color.BLACK);
+        g.setColor(Color.black);
         int w = PANEL_WIDTH/3;
         int x = (w-LifeBar.BAR_WIDTH)/2-10;
         g.setFont(new Font(null,Font.BOLD,12));
@@ -80,10 +105,18 @@ public class ULStatePanel extends JPanel {
     }
 
     private void printText(Graphics g){
-        int w = PANEL_WIDTH/3;
         g.setFont(new Font(null,Font.BOLD,20));
         g.setColor(Color.black);
-        g.drawString(controller.getMessage(),5,100);
+        g.drawString(controller.getMessage(),7,50);
     }
 
+    private BufferedImage convertToBufferedImg(String path){
+        BufferedImage temp = null;
+        try {
+            temp = ImageIO.read(new File(path));
+        }catch(IOException e){
+            System.out.println(e);
+        }
+        return temp;
+    }
 }

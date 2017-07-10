@@ -124,7 +124,7 @@ public class UniLifeGame {
         if(gameOver){
             message = "Game Over!!!";
         }else if(coffeeRushCount!=0){
-            message = "Coffee Rush: Super Speed!";
+            message = "Coffee Rush: Super Speed";
         }else if (sobernessCount !=0){
             message = "Too drunk to move!";
         }else{
