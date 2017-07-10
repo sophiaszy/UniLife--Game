@@ -51,7 +51,7 @@ public class ULGamePanel extends JPanel {
 
     private void drawStudent(Graphics g){
         Student s = controller.getStudent();
-        g.drawImage(studentImage,s.getX(),UniLifeGame.HEIGHT-131,null);
+        g.drawImage(studentImage,s.getX(),s.getY(),null);
     }
 
     private void drawFallingObjects(Graphics g){

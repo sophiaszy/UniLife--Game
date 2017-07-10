@@ -6,12 +6,14 @@ package com.company.model;
  */
 public class Student {
 
-    private final int NORMAL_SPEED = 25; //TODO
-    private final int FAST_SPEED = 50; //TODO
+    private final int NORMAL_SPEED = 5; //TODO
+    private final int FAST_SPEED = 10; //TODO
     private int x_coord = UniLifeGame.CTR_X;
-    private int y_coord = UniLifeGame.HEIGHT - 100; //TODO
+    private int y_coord = UniLifeGame.HEIGHT - STUDENT_HEIGHT; //TODO
     private boolean isDrunk = false;
     private int speed = NORMAL_SPEED;
+    public static final int STUDENT_WIDTH = 86;
+    public static final int STUDENT_HEIGHT = 131;
 
 
     public Student() {}
@@ -28,8 +30,8 @@ public class Student {
     public void moveRight() {
         if (isDrunk)
             return;
-        if ((x_coord + speed) >= UniLifeGame.WIDTH)
-            x_coord = UniLifeGame.WIDTH;
+        if ((x_coord + speed) >= UniLifeGame.WIDTH - STUDENT_WIDTH)
+            x_coord = UniLifeGame.WIDTH- STUDENT_WIDTH;
         else
             x_coord += speed;
     }

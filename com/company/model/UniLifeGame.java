@@ -14,10 +14,10 @@ public class UniLifeGame {
     public static final int CTR_X = WIDTH / 2;
 
     private static final int BORDER = 25; //TODO
-    private final int VICINITY = 25; //TODO
 
     private int sobernessCount;
     private int coffeeRushCount;
+    private int barCount = 0;
     private static final int MAX_COUNT = 25;
     private String message = "";
     private Random rand = new Random();
@@ -56,12 +56,12 @@ public class UniLifeGame {
     private void addFallingObjects() {
         int rand_xpos = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
 
-        int random1 = rand.nextInt(50);
+        int random1 = rand.nextInt(20);
         if(random1 <= 2){
             fallingObjects.add(new FallingObject( FallingObjectType.values()[random1], rand_xpos));
         }
 
-        int random2 = rand.nextInt(100);
+        int random2 = rand.nextInt(80);
         if (random2 == FallingObjectType.Coffee.getType() ||
                 random2 == FallingObjectType.Vodka.getType()) {
             int rand_xpos2 = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
@@ -73,7 +73,7 @@ public class UniLifeGame {
         List<FallingObject> toBeRemoved = new ArrayList<FallingObject>();
         for (FallingObject obj: fallingObjects) {
             obj.fall();
-            if (obj.getY() == HEIGHT)
+            if (obj.getY() == HEIGHT || obj.isCollected())
                 toBeRemoved.add(obj);
         }
         //delete everything from the to-be-removed list
@@ -83,10 +83,12 @@ public class UniLifeGame {
 
     private void collectObjects() {
         for (FallingObject obj: fallingObjects) {
-            if (obj.getX() < (student.getX() + VICINITY) &&
-                    obj.getX() > (student.getX() - VICINITY) &&
-                    obj.getY() < (student.getY() + VICINITY) &&
-                    obj.getY() > (student.getY() - VICINITY)) {
+            if (obj.isCollected())
+                return;
+            if (obj.getX() < (student.getX() + Student.STUDENT_WIDTH) &&
+                    obj.getX() > (student.getX()) &&
+                    obj.getY() < (student.getY()+ Student.STUDENT_HEIGHT) &&
+                    obj.getY() > student.getY()) {
                 if (obj.getType() == FallingObjectType.Coffee) {
                     student.drinkCoffee();
                     coffeeRushCount = MAX_COUNT;
@@ -95,15 +97,18 @@ public class UniLifeGame {
                     sobernessCount = MAX_COUNT;
                 } else
                     barMap.get(obj.getType()).increaseLevel();
-                fallingObjects.remove(obj);
+                obj.setCollected();
             }
         }
     }
 
     private void dropAllBarLevels() {
-        for (LifeBar bar: barMap.values()) {
-            bar.dropLevel();
+        if (barCount == 0) {
+            for (LifeBar bar : barMap.values()) {
+                bar.dropLevel();
+            }
         }
+        barCount = (barCount+1)%3;
     }
 
     private void checkIsGameOver() {
