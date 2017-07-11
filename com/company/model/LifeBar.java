@@ -4,10 +4,10 @@ package com.company.model;
  * Created by SophiaShen on 2017-06-11.
  */
 public class LifeBar {
-    private static final int DROP_SPEED = 1; //Todo
-    private static final int INC_SPEED = 5; //Todo
-    public static final int MAX_LEVEL = 80; //Todo
-    private int level= MAX_LEVEL; //Todo
+    private static final int DROP_SPEED = 1;
+    private static final int INC_SPEED = 8;
+    public static final int MAX_LEVEL = 80;
+    private int level= MAX_LEVEL;
 
     public static final int BAR_WIDTH = 30;
     public static final int BAR_HEIGHT = MAX_LEVEL;

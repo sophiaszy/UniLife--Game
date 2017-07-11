@@ -6,8 +6,8 @@ package com.company.model;
  */
 public class Student {
 
-    private final int NORMAL_SPEED = 5; //TODO
-    private final int FAST_SPEED = 10; //TODO
+    private final int NORMAL_SPEED = 10; //TODO
+    private final int FAST_SPEED = 20; //TODO
     private int x_coord = UniLifeGame.CTR_X;
     private int y_coord = UniLifeGame.HEIGHT - STUDENT_HEIGHT; //TODO
     private boolean isDrunk = false;

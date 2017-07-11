@@ -86,9 +86,9 @@ public class UniLifeGame {
             if (obj.isCollected())
                 return;
             if (obj.getX() < (student.getX() + Student.STUDENT_WIDTH) &&
-                    obj.getX() > (student.getX()) &&
+                    obj.getX()+35 > (student.getX()) &&
                     obj.getY() < (student.getY()+ Student.STUDENT_HEIGHT) &&
-                    obj.getY() > student.getY()) {
+                    obj.getY()+35 > student.getY()) {
                 if (obj.getType() == FallingObjectType.Coffee) {
                     student.drinkCoffee();
                     coffeeRushCount = MAX_COUNT;
