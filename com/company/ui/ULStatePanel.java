@@ -27,6 +27,7 @@ public class ULStatePanel extends JPanel {
     private BufferedImage foodImage;
     private BufferedImage bookImage;
     private BufferedImage sleepImage;
+    private BufferedImage logoImage;
 
 
     public ULStatePanel(UniLifeGame controller) {
@@ -35,18 +36,23 @@ public class ULStatePanel extends JPanel {
         setBackground(new Color(162, 210, 223));
         setLocation(PANEL_X_LOC, PANEL_Y_LOC);
 
-        foodImage = convertToBufferedImg("C:/Users/anita/Documents/UniLife--Game/com/company/resources/food_resized.png");
-        bookImage = convertToBufferedImg("C:/Users/anita/Documents/UniLife--Game/com/company/resources/books_resized.png");
-        sleepImage = convertToBufferedImg("C:/Users/anita/Documents/UniLife--Game/com/company/resources/sleep_resized.png");
+        foodImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\food_resized.png");
+        bookImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\books_resized.png");
+        sleepImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\sleep_resized.png");
+        logoImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\logo_resized.png");
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawBorder(g);
-        drawLifeBars(g);
-        printText(g);
-        lifeBarCaption(g);
+        if(controller.hasStarted()) {
+            drawBorder(g);
+            drawLifeBars(g);
+            printText(g);
+            lifeBarCaption(g);
+        }else{
+            g.drawImage(logoImage,0,0,null);
+        }
     }
 
     private void drawLifeBars(Graphics g){
@@ -100,14 +106,15 @@ public class ULStatePanel extends JPanel {
         g.setColor(Color.black);
         int w = PANEL_WIDTH/3;
         int x = (w-LifeBar.BAR_WIDTH)/2-10;
-        g.setFont(new Font(null,Font.BOLD,12));
-        g.drawString("Nutrition                 Sleep               Academics",x,PANEL_HEIGHT/2+LifeBar.BAR_HEIGHT+20);
+        g.setFont(new Font("Comic Sans MS",Font.BOLD,14));
+        g.drawString("Nutrition      Sleep      Academics",x,PANEL_HEIGHT/2+LifeBar.BAR_HEIGHT+20);
     }
 
     private void printText(Graphics g){
-        g.setFont(new Font(null,Font.BOLD,20));
+        g.setFont(new Font("Comic Sans MS",Font.BOLD,18));
         g.setColor(Color.black);
-        g.drawString(controller.getMessage(),7,50);
+        int w = g.getFontMetrics().stringWidth(controller.getMessage())/2;
+        g.drawString(controller.getMessage(),PANEL_WIDTH/2-w ,50);
     }
 
     private BufferedImage convertToBufferedImg(String path){

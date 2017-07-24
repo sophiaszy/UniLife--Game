@@ -24,7 +24,10 @@ public class UniLifeGame {
     private List<FallingObject> fallingObjects;
     private Student student;
     private boolean gameOver = false;
+    private boolean gameStarted = false;
     private Map<FallingObjectType, LifeBar> barMap;
+
+    public int score;
 
     public UniLifeGame(){
         student = new Student();
@@ -39,17 +42,21 @@ public class UniLifeGame {
     public boolean isGameOver() {
         return gameOver;
     }
+    public boolean hasStarted(){return gameStarted;}
+    public void startGame(){gameStarted = true;}
 
     public void update() {
         //TODO
-        addFallingObjects();
-        collectObjects();
-        moveFallingObjects();
-        dropAllBarLevels();
-        updateStudentCoffeeStatus();
-        updateStudentSoberness();
-        checkIsGameOver();
-        updateMessage();
+        if(!gameOver && gameStarted) {
+            addFallingObjects();
+            collectObjects();
+            moveFallingObjects();
+            dropAllBarLevels();
+            updateStudentCoffeeStatus();
+            updateStudentSoberness();
+            checkIsGameOver();
+            updateMessage();
+        }
     }
 
 
@@ -97,6 +104,7 @@ public class UniLifeGame {
                     sobernessCount = MAX_COUNT;
                 } else
                     barMap.get(obj.getType()).increaseLevel();
+                    score +=1;
                 obj.setCollected();
             }
         }
@@ -121,12 +129,12 @@ public class UniLifeGame {
     }
 
     private void updateMessage(){
-        if(gameOver){
-            message = "Game Over!!!";
-        }else if(coffeeRushCount!=0){
-            message = "Coffee Rush: Super Speed";
+        if(coffeeRushCount!=0){
+            message = "Coffee Rush: Super Speed!";
         }else if (sobernessCount !=0){
             message = "Too drunk to move!";
+        }else if(gameOver){
+            message = "Your final score: " + score;
         }else{
             message = "";
         }
@@ -168,6 +176,28 @@ public class UniLifeGame {
             student.moveLeft();
         else if (e == KeyEvent.VK_RIGHT)
             student.moveRight();
+        else if(e == KeyEvent.VK_Q){
+            System.exit(0);
+        }else if(e == KeyEvent.VK_R){
+            restart();
+        }else if(e == KeyEvent.VK_SPACE){
+            startGame();
+        }
+    }
+
+    public void restart(){
+        fallingObjects.clear();
+        barMap.clear();
+        barMap.put(FallingObjectType.Food, new LifeBar());
+        barMap.put(FallingObjectType.Book, new LifeBar());
+        barMap.put(FallingObjectType.Sleep, new LifeBar());
+        message= "";
+        rand = new Random();
+        student.center();
+        sobernessCount = 0;
+        coffeeRushCount = 0;
+        barCount = 0 ;
+        gameOver = false;
     }
 
 }

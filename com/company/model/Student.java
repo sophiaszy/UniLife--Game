@@ -56,4 +56,8 @@ public class Student {
         return y_coord;
     }
 
+    public void center(){
+        x_coord = UniLifeGame.CTR_X;
+    }
+
 }

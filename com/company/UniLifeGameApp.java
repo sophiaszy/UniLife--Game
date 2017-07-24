@@ -5,6 +5,7 @@ import com.company.ui.ULGamePanel;
 import com.company.ui.ULStatePanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -39,6 +40,7 @@ public class UniLifeGameApp extends JFrame implements ActionListener {
 
     private void setUpFrame() {
         setSize(UniLifeGame.WIDTH,UniLifeGame.HEIGHT);
+        setUndecorated(true);
         setLocationRelativeTo(null);
         setVisible(true);
 
@@ -67,8 +69,8 @@ public class UniLifeGameApp extends JFrame implements ActionListener {
 
     public void actionPerformed( ActionEvent evt) {
         controller.update();
-        if (controller.isGameOver())
-            timer.stop();
+        //if (controller.isGameOver())
+            //timer.stop();
         repaint();
     }
 
