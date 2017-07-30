@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="UniLife--Game:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/UniLife__Game_jar</output-path>
+    <root id="archive" name="UniLife--Game.jar">
+      <element id="module-output" name="UniLife--Game" />
+      <element id="dir-copy" path="$PROJECT_DIR$/com/company/resources" />
+    </root>
+  </artifact>
+</component>

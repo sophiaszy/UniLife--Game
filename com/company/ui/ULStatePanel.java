@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 /**
@@ -36,10 +37,10 @@ public class ULStatePanel extends JPanel {
         setBackground(new Color(162, 210, 223));
         setLocation(PANEL_X_LOC, PANEL_Y_LOC);
 
-        foodImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\food_resized.png");
-        bookImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\books_resized.png");
-        sleepImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\sleep_resized.png");
-        logoImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\logo_resized.png");
+        foodImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("food_resized.png"));
+        bookImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("books_resized.png"));
+        sleepImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("sleep_resized.png"));
+        logoImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("logo_resized.png"));
     }
 
     @Override
@@ -117,10 +118,10 @@ public class ULStatePanel extends JPanel {
         g.drawString(controller.getMessage(),PANEL_WIDTH/2-w ,50);
     }
 
-    private BufferedImage convertToBufferedImg(String path){
+    private BufferedImage convertToBufferedImg(InputStream path){
         BufferedImage temp = null;
         try {
-            temp = ImageIO.read(new File(path));
+            temp = ImageIO.read(path);
         }catch(IOException e){
             System.out.println(e);
         }

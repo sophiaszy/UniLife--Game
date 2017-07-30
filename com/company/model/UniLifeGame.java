@@ -70,7 +70,7 @@ public class UniLifeGame {
 
         int random2 = rand.nextInt(80);
         if (random2 == FallingObjectType.Coffee.getType() ||
-                random2 == FallingObjectType.Vodka.getType()) {
+                random2 == FallingObjectType.Beer.getType()) {
             int rand_xpos2 = rand.nextInt(WIDTH - 2*BORDER) + BORDER;
             fallingObjects.add(new FallingObject(FallingObjectType.values()[random2], rand_xpos2));
         }
@@ -99,7 +99,7 @@ public class UniLifeGame {
                 if (obj.getType() == FallingObjectType.Coffee) {
                     student.drinkCoffee();
                     coffeeRushCount = MAX_COUNT;
-                } else if (obj.getType() == FallingObjectType.Vodka) {
+                } else if (obj.getType() == FallingObjectType.Beer) {
                     student.changeDrunkStatus(true);
                     sobernessCount = MAX_COUNT;
                 } else

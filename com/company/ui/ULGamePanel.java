@@ -1,7 +1,6 @@
 package com.company.ui;
 
 import com.company.model.*;
-import com.sun.deploy.panel.JSmartTextArea;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,11 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
+import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by SophiaShen on 2017-06-17.
@@ -25,10 +22,11 @@ public class ULGamePanel extends JPanel {
     private BufferedImage studentImage;
     private BufferedImage coffeeImage;
     private BufferedImage sleepImage;
-    private BufferedImage vodkaImage;
+    private BufferedImage beerImage;
     private BufferedImage foodImage;
     private BufferedImage bookImage;
     private BufferedImage bkg;
+    private BufferedImage end_bkg;
 
     private JButton restart_b = new JButton("restart");
     private JButton quit_b = new JButton("quit");
@@ -39,13 +37,14 @@ public class ULGamePanel extends JPanel {
         this.controller = controller;
         setSize(UniLifeGame.WIDTH, UniLifeGame.HEIGHT);
         setBackground(new Color(162, 210, 223));
-        studentImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\student_resized.png");
-        coffeeImage  = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\coffee_resized.png");
-        sleepImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\sleep_resized.png");
-        vodkaImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\beer_resized.png");
-        foodImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\food_resized.png");
-        bookImage = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\books_resized.png");
-        bkg = convertToBufferedImg(System.getProperty("user.dir") + "\\com\\company\\resources\\school_resized.png");
+        studentImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("student_resized.png"));
+        coffeeImage  = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("coffee_resized.png"));
+        beerImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("beer_resized.png"));
+        bkg = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("school_resized.png"));
+        end_bkg = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("gameover_resized.png"));
+        foodImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("food_resized.png"));
+        bookImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("books_resized.png"));
+        sleepImage = convertToBufferedImg(this.getClass().getClassLoader().getResourceAsStream("sleep_resized.png"));
         renderGameIntro();
     }
 
@@ -90,8 +89,8 @@ public class ULGamePanel extends JPanel {
             case Sleep:
                 g.drawImage(sleepImage,o.getX(),o.getY(),null);
                 break;
-            case Vodka:
-                g.drawImage(vodkaImage,o.getX(),o.getY(),null);
+            case Beer:
+                g.drawImage(beerImage,o.getX(),o.getY(),null);
                 break;
             case Food:
                 g.drawImage(foodImage,o.getX(),o.getY(),null);
@@ -99,10 +98,10 @@ public class ULGamePanel extends JPanel {
         }
     }
 
-    private BufferedImage convertToBufferedImg(String path){
+    private BufferedImage convertToBufferedImg(InputStream path){
         BufferedImage temp = null;
         try {
-            temp = ImageIO.read(new File(path));
+            temp = ImageIO.read(path);
         }catch(IOException e){
             System.out.println(e);
         }
@@ -111,11 +110,9 @@ public class ULGamePanel extends JPanel {
 
     private void renderGameOver(Graphics g){
         g.setFont(new Font("Comic Sans MS", Font.BOLD,30));
-        int strWidth = g.getFontMetrics().stringWidth("GAME OVER!!!");
-        int strHeight = g.getFontMetrics().getHeight();
-        g.drawString("GAME OVER!!!", UniLifeGame.CTR_X-strWidth/2,UniLifeGame.HEIGHT/2-strHeight/2);
-        setupButton(restart_b,UniLifeGame.CTR_X-50, UniLifeGame.HEIGHT*2/3, new RestartAction());
-        setupButton(quit_b, UniLifeGame.CTR_X-50, UniLifeGame.HEIGHT*2/3+80, new QuitAction());
+        g.drawImage(end_bkg, 0, 0, null);
+        setupButton(restart_b,UniLifeGame.CTR_X-70, UniLifeGame.HEIGHT*2/3+30, new RestartAction());
+        setupButton(quit_b, UniLifeGame.CTR_X-70, UniLifeGame.HEIGHT*2/3+80, new QuitAction());
     }
 
     private void renderGameIntro(){
@@ -135,6 +132,8 @@ public class ULGamePanel extends JPanel {
         intro.setLocation(60,UniLifeGame.HEIGHT/2-25);
         intro.setBackground(new Color(255, 255, 255));
         intro.setSize(UniLifeGame.WIDTH-120,UniLifeGame.HEIGHT/2+15);
+        intro.setEditable(false);
+        intro.setFocusable(false);
         this.add(intro);
 
 
@@ -144,6 +143,8 @@ public class ULGamePanel extends JPanel {
         name.setLocation(80,60);
         name.setBackground(new Color(162, 210, 223));
         name.setSize(400,300);
+        name.setEditable(false);
+        name.setFocusable(false);
         this.add(name);
     }
 
