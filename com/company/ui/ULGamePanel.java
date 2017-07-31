@@ -27,7 +27,7 @@ public class ULGamePanel extends JPanel {
     private BufferedImage bookImage;
     private BufferedImage bkg;
     private BufferedImage end_bkg;
-
+ 
     private JButton restart_b = new JButton("restart");
     private JButton quit_b = new JButton("quit");
     private JTextPane intro = new JTextPane();
