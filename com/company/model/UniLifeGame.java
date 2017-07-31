@@ -197,6 +197,7 @@ public class UniLifeGame {
         sobernessCount = 0;
         coffeeRushCount = 0;
         barCount = 0 ;
+        score = 0;
         gameOver = false;
     }
 
